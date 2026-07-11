@@ -87,29 +87,7 @@ Configurations
 
 
   mkFlake {
-        systems = [ "aarch64-darwin" "x86_64-linux" ];
-
-
-        perSystem = { config, self', inputs', pkgs, system, lib, ... }:
-        let
-            darwin = system == "aarch64-darwin";
-
-            cfg = if darwin then {}
-            else
-            {
-                nixosConfigurations.vanilla = lib.nixosSystem {
-                    system = system;
-
-                    specialArgs = { user = "matt"; };
-
-                    modules = [
-                        ./machines/linux.nix
-                    ];
-
-                };
-            };
-        in
-        cfg;
+      systems = [ "aarch64-darwin" "x86_64-linux" ];
 
       flake = { ... }: {
 
