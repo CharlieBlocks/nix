@@ -177,4 +177,13 @@
 
     };
 
+
+    ## TEMPORARY USER DEF ##
+    users.users."matt" = {
+        isNormalUser = true;
+        description = "matt";
+        extraGroups = [ "networkmanager" "wheel" ];
+        packages = [];
+    };
+
 }

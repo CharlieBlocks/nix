@@ -104,12 +104,6 @@ Configurations
 
                     modules = [
                         ./machines/linux.nix
-
-                        inputs'.home-manager.home-manager {
-                            home-manager.useGlobalPkgs = true;
-                            home-manager.useUserPkgs = true;
-                            home-manager.users.matthewtindley = ./users/matthewtindley.nix;
-                        }
                     ];
 
                 };
