@@ -27,6 +27,7 @@ Configurations
 ->
 
 
+-> vanilla (the base configuration)
 
 
 
@@ -39,6 +40,9 @@ Configurations
   inputs = {
     # The Nix Package Repository
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    # Used to structure flakes
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # nix-darwin for MacOS configuration
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
@@ -70,47 +74,107 @@ Configurations
 
   };
 
-  outputs = inputs@{ self, ... }:
+  outputs = inputs@{ self, flake-parts, ... }:
   let
       nixpkgs = {
           overlays = [
               inputs.brew-nix.overlays.default
           ];
       };
+
+      mkFlake = flake-parts.lib.mkFlake { inherit inputs; };
   in
+
+
+  mkFlake {
+        systems = [ "aarch64-darwin" "x86_64-linux" ];
+
+
+        perSystem = { config, self', inputs', pkgs, system, lib, ... }:
+        let
+            darwin = system == "aarch64-darwin";
+
+            cfg = if darwin then {}
+            else
+            {
+                nixosConfigurations.vanilla = lib.nixosSystem {
+                    system = system;
+
+                    specialArgs = { user = "matt"; };
+
+                    modules = [
+                        ./machines/linux.nix
+
+                        inputs'.home-manager.home-manager {
+                            home-manager.useGlobalPkgs = true;
+                            home-manager.useUserPkgs = true;
+                            home-manager.users.matthewtindley = ./users/matthewtindley.nix;
+                        }
+                    ];
+
+                };
+            };
+        in
+        cfg;
+
+      flake = { ... }: {
+          darwinConfigurations = (
+              # Create a new darwin system configuration
+              # This will call darwin.lib.darwinSystem and return it
+              import ./machines/darwin.nix {
+                self = self;
+                name = "base"; # Name of the configuration
+                user = "matthewtindley";
+                nixpkgs = nixpkgs;
+
+                modules = [
+                    inputs.brew-nix.darwinModules.default
+                ];
+
+                darwin = inputs.nix-darwin;
+                home-manager = inputs.home-manager;
+
+                base16 = inputs.base16;
+                tt-schemes = inputs.tt-schemes;
+              }
+          );
+      };
+
+  };
+
 
   /*
   Darwin (MacOS) configurations:
     - base
 
   */
-  {
+  # {
 
-    # nix-darwin reads out configurations
-    # from the darwinConfigurations variable
-    darwinConfigurations = (
+  #   # nix-darwin reads out configurations
+  #   # from the darwinConfigurations variable
+  #   darwinConfigurations = (
 
-      # Create a new darwin system configuration
-      # This will call darwin.lib.darwinSystem and return it
-      import ./machines/darwin.nix {
-        self = self;
-        name = "base"; # Name of the configuration
-        user = "matthewtindley";
-        nixpkgs = nixpkgs;
+  #     # Create a new darwin system configuration
+  #     # This will call darwin.lib.darwinSystem and return it
+  #     import ./machines/darwin.nix {
+  #       self = self;
+  #       name = "base"; # Name of the configuration
+  #       user = "matthewtindley";
+  #       nixpkgs = nixpkgs;
 
-        modules = [
-            inputs.brew-nix.darwinModules.default
-        ];
+  #       modules = [
+  #           inputs.brew-nix.darwinModules.default
+  #       ];
 
-        darwin = inputs.nix-darwin;
-        home-manager = inputs.home-manager;
+  #       darwin = inputs.nix-darwin;
+  #       home-manager = inputs.home-manager;
 
-        base16 = inputs.base16;
-        tt-schemes = inputs.tt-schemes;
-      }
+  #       base16 = inputs.base16;
+  #       tt-schemes = inputs.tt-schemes;
+  #     }
 
 
-    );
+  #   );
 
-  };
+  # };
 }
