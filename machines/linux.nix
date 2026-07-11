@@ -162,8 +162,8 @@
 
         # Builder Settings
         settings = {
-          allowed-users = [ "root" "${user}" ];
-          trusted-users = [ "root" "${user}" ];
+          allowed-users = [ "root" "matt" ];
+          trusted-users = [ "root" "matt" ];
 
           # Enforces that binary cache downloads are cryptographically signed.
           require-sigs = true;
