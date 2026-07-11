@@ -1,0 +1,116 @@
+/*
+
+flake.nix
+-> Get profile information
+  - Architecture
+  - Hostname
+  - Package repository
+  - System configurations
+-> Get packages
+
+profile/default.nix
+-> Exports MacOS profile
+  nix-darwin.lib.darwinSystem
+    - system
+      specialArgs
+      modules
+        - home-manager (for config files)
+          -> ./configs
+        - brew
+          -> ./modules/brew
+        - system packages
+          -> ./modules/base.nix
+        - system configuration
+          -> ./machines/macos
+
+Configurations
+->
+
+
+
+
+
+
+*/
+
+{
+  description = "Matthew Tindley's NIX configuration";
+
+  inputs = {
+    # The Nix Package Repository
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    # nix-darwin for MacOS configuration
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager = {
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    brew-nix = {
+        url = "github:BatteredBunny/brew-nix";
+        inputs.brew-api.follows = "brew-api";
+        inputs.nix-darwin.follows = "nix-darwin";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+    brew-api = {
+        url = "github:BatteredBunny/brew-api";
+        flake = false;
+    };
+
+    base16.url = "github:SenchoPens/base16.nix";
+    tt-schemes = {
+        url = "github:tinted-theming/schemes";
+        flake = false;
+    };
+
+    # FUTURE: pull in nixos manager
+
+  };
+
+  outputs = inputs@{ self, ... }:
+  let
+      nixpkgs = {
+          overlays = [
+              inputs.brew-nix.overlays.default
+          ];
+      };
+  in
+
+  /*
+  Darwin (MacOS) configurations:
+    - base
+
+  */
+  {
+
+    # nix-darwin reads out configurations
+    # from the darwinConfigurations variable
+    darwinConfigurations = (
+
+      # Create a new darwin system configuration
+      # This will call darwin.lib.darwinSystem and return it
+      import ./machines/darwin.nix {
+        self = self;
+        name = "base"; # Name of the configuration
+        user = "matthewtindley";
+        nixpkgs = nixpkgs;
+
+        modules = [
+            inputs.brew-nix.darwinModules.default
+        ];
+
+        darwin = inputs.nix-darwin;
+        home-manager = inputs.home-manager;
+
+        base16 = inputs.base16;
+        tt-schemes = inputs.tt-schemes;
+      }
+
+
+    );
+
+  };
+}

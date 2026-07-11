@@ -1,0 +1,63 @@
+default_mode "normal"
+scroll_buffer_size 10000
+show_startup_tips false
+
+// Frames around each pane
+pane_frames true
+
+keybinds {
+
+    normal clear-default=true {
+        bind "Ctrl Space" { SwitchToMode "pane"; }
+
+        bind "Ctrl h" { MoveFocus "Left"; }
+        bind "Ctrl j" { MoveFocus "Down"; }
+        bind "Ctrl k" { MoveFocus "Up"; }
+        bind "Ctrl l" { MoveFocus "Right"; }
+
+        bind "Alt n" { NewPane "stacked"; TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
+        bind "Alt x" { CloseFocus; }
+    }
+
+    pane clear-default=true {
+        bind "Ctrl Space" { SwitchToMode "normal"; }
+        bind "Enter" { SwitchToMode "normal"; }
+
+        bind "s" { SwitchToMode "tab"; }
+        bind "d" { SwitchToMode "session"; }
+
+        bind "h" { MoveFocus "Left"; }
+        bind "j" { MoveFocus "Down"; }
+        bind "k" { MoveFocus "Up"; }
+        bind "l" { MoveFocus "Right"; }
+
+        bind "Shift h" { MovePane "Left"; }
+        bind "Shift j" { MovePane "Down"; }
+        bind "Shift k" { MovePane "Up"; }
+        bind "Shift l" { MovePane "Right"; }
+
+        bind "v" { NewPane "Down"; }
+        bind "g" { NewPane "Right"; }
+        bind "n" { NewPane "stacked"; }
+        bind "Shift n" { NewPane "stacked"; TogglePaneEmbedOrFloating; SwitchToMode "normal"; }
+
+        bind "f" { TogglePaneEmbedOrFloating; }
+        bind "Shift f" { ToggleFloatingPanes; }
+        bind "p" { TogglePanePinned; }
+
+        bind "Backspace" { CloseFocus; SwitchToMode "normal"; }
+
+
+        bind "Up" { Resize "Up"; }
+        bind "Down" { Resize "Down"; }
+        bind "Left" { Resize "Left"; }
+        bind "Right" { Resize "Right"; }
+
+        bind "=" { Resize "Increase"; }
+        bind "-" { Resize "Decrease"; }
+
+        bind "r" { SwitchToMode "RenamePane"; PaneNameInput; }
+    }
+
+
+}
