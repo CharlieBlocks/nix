@@ -112,6 +112,17 @@ Configurations
         cfg;
 
       flake = { ... }: {
+
+          nixosConfigurations.vanilla = inputs.nixpkgs.lib.nixosSystem {
+              system = system;
+
+              specialArgs = { user = "matt"; };
+
+              modules = [
+                  ./machines/linux.nix
+              ];
+          };
+
           darwinConfigurations = (
               # Create a new darwin system configuration
               # This will call darwin.lib.darwinSystem and return it

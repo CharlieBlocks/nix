@@ -53,7 +53,6 @@
 
     swapDevices = [{
         device = "/dev/sda5";
-        size = 16*1024; # 16G
     }];
 
 
@@ -68,7 +67,7 @@
     ## ======================##
     networking = {
         networkmanager.enable = true;
-        hostname = "nixos-desktop";
+        hostName = "nixos-desktop";
     };
 
 
@@ -111,19 +110,6 @@
 
         shells = [ pkgs.zsh ];
 
-        programs.zsh = {
-            enable = true;
-            enableAutosuggestions = true;
-            enableCompletion = true;
-        };
-        programs.man.enable = true;
-
-        programs.hyprland = {
-            enable = true;
-            nvidiaPatches = true;
-            xwayland.enable = false;
-        };
-
         sessionVariables = {
             # If cursor doesn't show up
             # WLR_NO_HARDWARE_CURSORS = "1";
@@ -131,6 +117,26 @@
             NIXOS_OZONE_WL = "1";
         };
     };
+    programs.zsh = {
+        enable = true;
+        enableAutosuggestions = true;
+        enableCompletion = true;
+    };
+    programs.man.enable = true;
+
+    programs.hyprland = {
+        enable = true;
+        xwayland.enable = false;
+    };
+
+
+    ##=================##
+    ## System Services ##
+    ##=================##
+    services = {
+        displayManager.ly.enable = true;
+    };
+
 
 
     ##===================##
@@ -143,7 +149,7 @@
             automatic = true;
 
             # Run every 7 days
-            interval = { Hour = 0; Minute = 0; Weekday = 7; };
+            dates = [ "Mon *-*-* 00:00:00" ];
             options = "--delete-older-than 2d";
         };
 
@@ -151,7 +157,7 @@
         # Currently disabled
         optimise = {
           automatic = false;
-          interval = { Hour = 0; Minute = 0; Weekday = 7; };
+          dates = [ "Mon *-*-* 00:00:00" ];
         };
 
         # Builder Settings
