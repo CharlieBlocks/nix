@@ -114,7 +114,7 @@ Configurations
       flake = { ... }: {
 
           nixosConfigurations.vanilla = inputs.nixpkgs.lib.nixosSystem {
-              system = system;
+              system = "x86_64-linux";
 
               specialArgs = { user = "matt"; };
 
