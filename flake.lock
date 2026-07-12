@@ -114,6 +114,22 @@
         "type": "github"
       }
     },
+    "ly-anim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783331194,
+        "narHash": "sha256-BQhlvWmEkXNpbUgtGBzbHjdQwRa2jxHhBBNu8sVzIDQ=",
+        "ref": "refs/heads/main",
+        "rev": "2f22cfaf7d17598c8f60f562d56e16d74b6c99ab",
+        "revCount": 4,
+        "type": "git",
+        "url": "https://codeberg.org/fairyglade/ly-community.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/fairyglade/ly-community.git"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -173,6 +189,7 @@
         "brew-nix": "brew-nix",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "ly-anim": "ly-anim",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "tt-schemes": "tt-schemes"

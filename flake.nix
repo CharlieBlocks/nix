@@ -70,6 +70,11 @@ Configurations
         flake = false;
     };
 
+    ly-anim = {
+	url = "git+https://codeberg.org/fairyglade/ly-community.git";
+	flake = false;
+    };
+
     # FUTURE: pull in nixos manager
 
   };
@@ -94,7 +99,7 @@ Configurations
           nixosConfigurations.vanilla = inputs.nixpkgs.lib.nixosSystem {
               system = "x86_64-linux";
 
-              specialArgs = { user = "matt"; };
+              specialArgs = { user = "matt"; inherit inputs; };
 
               modules = [
                   ./machines/linux.nix

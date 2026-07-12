@@ -1,4 +1,5 @@
-{ configs, pkgs, lib, ... }: {
+{ configs, pkgs, lib, inputs, ... }: 
+{
     ## ====================== ##
     ## Hardware Configuration ##
     ## ====================== ##
@@ -88,7 +89,13 @@
         LC_TELEPHONE = "en_GB.UTF-8";
         LC_TIME = "en_GB.UTF-8";
     };
-    console.keyMap = "uk";
+
+    console = {
+	earlySetup = true;
+	keyMap = "uk";
+	font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
+	packages = with pkgs; [ terminus_font ];
+    };
 
 
 
@@ -106,6 +113,7 @@
             git
 
             zsh
+	    kitty
         ];
 
         shells = [ pkgs.zsh ];
@@ -127,14 +135,43 @@
     programs.hyprland = {
         enable = true;
         xwayland.enable = false;
+	withUWSM = true;
+	# If installed using HomeManager ensure that hyprland.systemd.enable is false
     };
+
 
 
     ##=================##
     ## System Services ##
     ##=================##
     services = {
-        displayManager.ly.enable = true;
+        displayManager.ly = {
+	    enable = true;
+	    settings = {
+		animate = false;
+		animation = "dur_file";
+		animation_frame_delay = 5;
+		animation_timeout_sec = 0;
+		dur_file_path = "${inputs.ly-anim}/animations/dur/blackhole-smooth-240x67.dur";
+		dur_offset_alignment = "center";
+		dur_x_offset = 0;
+		dur_y_offset = 0;
+		edge_margin = 0;
+		 
+		corner_top_right = "clock";
+		corner_bottom_left = "version";
+		corner_bottom_right = "numlock,capslock";
+
+		clock = "%a %b %d - %H:%M:%S %Z";
+		asterisk = "*";
+		blank_password = true;
+		blank_box = false;
+		margin_box_h = 6;
+		margin_box_v = 3;
+		input_len = 40;
+		hide_key_hints = true;
+	    };
+	};
     };
 
 
