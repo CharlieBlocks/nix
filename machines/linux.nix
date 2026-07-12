@@ -139,6 +139,8 @@
 	# If installed using HomeManager ensure that hyprland.systemd.enable is false
     };
 
+    programs.firefox.enable = true;
+
 
 
     ##=================##
