@@ -102,6 +102,12 @@ manager being declarative, nix the language is a little harder to read at a glan
         };
 
 
+        niri = {
+            url = "github:sodiboo/niri-flake";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+
         /*
         Finally, season to taste.
 
@@ -115,6 +121,11 @@ manager being declarative, nix the language is a little harder to read at a glan
             url = "github:tinted-theming/schemes";
             flake = false;
         };
+        base16 = {
+            url = "github:SenchoPens/base16.nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
 
         ly-anim = {
@@ -187,8 +198,8 @@ manager being declarative, nix the language is a little harder to read at a glan
         Here we set the overlays to be applied to nixpkgs.
 
         Overlays are additions made to the nixpkgs flake to allow us to add or override functionality.
-        In this case we are adding the packages exposed by brew-nix to nixpkgs so we can
-        keep everything central.
+        In this case we are adding packages that are not included by default in NixOS, nix-darwin or
+        home-manager.
 
         This is not techinically the nix way to overlay packages. That would be done using
         `import nixpkgs { inherit system; overlays = [ ... ] }`; However for the purposes of NixOS and
@@ -284,6 +295,12 @@ manager being declarative, nix the language is a little harder to read at a glan
                                 imports.
                                 */
                                 userfile
+                            ];
+                            /*
+                            These are modules that are shared between users
+                            */
+                            sharedModules = [
+                                inputs.niri.homeModules.niri
                             ];
                         }
                     ];

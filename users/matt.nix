@@ -1,10 +1,15 @@
-{ pkgs, lib, tt-schemes, ... }:
+{ pkgs, lib, tt-schemes, inputs }:
 let
 in
 
 {
 
     imports = [
+        # This will initialise the base16 home-manager module
+        # which allows us to access the base16 colours from the home-manager
+        # config.
+        inputs.base16.homeManagerModule
+
         # These are home-manager configurations that are applied
         # to all users. This is mostly home-manager's own configuration
         # as well as secrets management.
@@ -52,7 +57,7 @@ in
     injected into the dot files, usually into a 'nix' theme, to style
     the app. Yes, I am aware that stylix exists but I prefer this method.
     */
-    theme.scheme = "${tt-schemes}/base24/eldritch.yaml";
+    scheme = "${tt-schemes}/base24/eldritch.yaml";
 
 
     /*
@@ -74,7 +79,7 @@ in
         have not been implemented which causes non-responsive windows -
         *cough*Unity*cough* - to bung up navigation.
         */
-        aerospace.enable = pkgs.stdenv.buildPlatform.isDarwin;
+        # aerospace.enable = pkgs.stdenv.buildPlatform.isDarwin;
 
         /*
         I am a long term alacritty user and have never had a problem with it.
@@ -105,10 +110,10 @@ in
         };
 
 
-        zed = {
-            enable = true;
-            extensions = [ ];
-        };
+        # zed = {
+        #     enable = true;
+        #     extensions = [ ];
+        # };
 
 
         /*
@@ -120,9 +125,9 @@ in
         responsive to user feedback. Stuff like changing tab size has been an
         issue for years now.
         */
-        vscode = {
-            enable = true;
-        };
+        # vscode = {
+        #     enable = true;
+        # };
 
 
         /*
@@ -133,8 +138,8 @@ in
         against chromium.
         */
         # librefox.enable = true;
-        firefox.enable = true;
-        chrome.enable = true;
+        # firefox.enable = true;
+        # chrome.enable = true;
 
 
         /*
@@ -142,51 +147,59 @@ in
         I don't install or configure tools like cargo or python
         as that is the job of devshells
         */
-        cli = {
-            az = {
-                enable = true;
+        # cli = {
+        #     az = {
+        #         enable = true;
 
-                # TODO: Credentials
-                username = "";
+        #         # TODO: Credentials
+        #         username = "";
 
-                # https://discourse.nixos.org/t/how-can-we-use-the-azure-cli-extensions-packages/45474/5
-                extensions = [];
-            };
+        #         # https://discourse.nixos.org/t/how-can-we-use-the-azure-cli-extensions-packages/45474/5
+        #         extensions = [];
+        #     };
 
-            /* git is included in global but not configured for the user */
-            git = {
-                enable = true;
-                # name = "Matthew Tindley";
-                # email = "matthewjtindley@gmail.com";
-            };
+        #     /* git is included in global but not configured for the user */
+        #     git = {
+        #         enable = true;
+        #         # name = "Matthew Tindley";
+        #         # email = "matthewjtindley@gmail.com";
+        #     };
 
-            /*
-            Since I moved from windows to macos I started using podman.
-            I much prefer it to docker and have finally managed to phase
-            all docker usage out of my workflow. The last sticking point
-            was cross compilation but nix solved that!
-            */
-            podman.enable = true;
-            docker.enable = false; # Technically not CLI but that is a docker problem
+        #     /*
+        #     Since I moved from windows to macos I started using podman.
+        #     I much prefer it to docker and have finally managed to phase
+        #     all docker usage out of my workflow. The last sticking point
+        #     was cross compilation but nix solved that!
+        #     */
+        #     podman.enable = true;
+        #     docker.enable = false; # Technically not CLI but that is a docker problem
 
-            /**/
-            ssh = {
-                enable = true;
-                # Some config
-                # auto-generate keys?
-            };
+        #     /**/
+        #     ssh = {
+        #         enable = true;
+        #         # Some config
+        #         # auto-generate keys?
+        #     };
 
 
-            /*
-            Wireguard has become my goto for VPN configurations. Much easier
-            to deploy than OpenVPN and significantly lighter.
-            */
-            wireguard = {
-                enable = true;
-                profiles = [];
-            };
+        #     /*
+        #     Wireguard has become my goto for VPN configurations. Much easier
+        #     to deploy than OpenVPN and significantly lighter.
+        #     */
+        #     wireguard = {
+        #         enable = true;
+        #         profiles = [];
+        #     };
 
-        };
+
+        #     # common.enable = true
+        #     # - nix-search-tv
+        #     # - wget
+        #     # - rsync
+        #     # - zip
+        #     # - unzip
+
+        # };
 
     };
 
