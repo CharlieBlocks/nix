@@ -150,7 +150,7 @@ manager being declarative, nix the language is a little harder to read at a glan
     that accepts any amount of args, including self, and we can access these args using the
     inputs attrset.
     */
-    outputs = inputs@{ self, nix-darwin, home-manager, ... }:
+    outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager, ... }:
     let
         /*
         This is the list of physical devices that this nix configuration will
@@ -207,11 +207,10 @@ manager being declarative, nix the language is a little harder to read at a glan
 
         (https://wiki.nixos.org/wiki/Overlays)
         */
-        nixpkgs = {
-            overlays = [
-                inputs.brew-nix.overlays.default
-            ];
-        };
+        # Currently breaks nixpkgs
+        # nixpkgs.overlays = [
+        #     inputs.brew-nix.overlays.default
+        # ];
 
 
         forOs =
@@ -221,7 +220,7 @@ manager being declarative, nix the language is a little harder to read at a glan
         # Code
             builtins.filter
                 # Function
-                (x: if (builtins.elemAt (inputs.nixpkgs.lib.strings.stringToCharacters x) 1) == os then true else false )
+                (x: if (builtins.elemAt (nixpkgs.lib.strings.stringToCharacters x) 1) == os then true else false )
                 hosts;
 
 
@@ -241,7 +240,7 @@ manager being declarative, nix the language is a little harder to read at a glan
             builtins.listToAttrs (
                 map
                     (args: { name = "${args.hosts}-${args.users}"; value = callback { host = args.hosts; user = args.users; }; })
-                    (inputs.nixpkgs.lib.attrsets.cartesianProduct {
+                    (nixpkgs.lib.attrsets.cartesianProduct {
                         hosts = hosts;
                         users = users;
                     })
