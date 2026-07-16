@@ -19,7 +19,6 @@
         */
         initrd = {
             availableKernelModules = [ "uhci_hcd" "ahci" "xhci_pci" "nvme" "usbhid" "sr_mod" ];
-            kernelModules = [];
             kernelModules = [ "kvm-intel" ];
             extraModulesPackages = [ ];
         };
