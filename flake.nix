@@ -286,7 +286,7 @@ manager being declarative, nix the language is a little harder to read at a glan
                         our NixOS system here.
                         */
                         home-manager.nixosModules.home-manager {
-                            extraSpecialArgs = { inherit (self) inputs outputs; };
+                            # extraSpecialArgs = { inherit (self) inputs outputs; };
                             modules = [
                                 /*
                                 Users are esentially just a config file for our modules. However we keep them

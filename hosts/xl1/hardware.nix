@@ -1,4 +1,4 @@
-{ ... }: {
+{ lib, ... }: {
 
     ##========================================================##
     ## Boot Configuration                                     ##
@@ -20,7 +20,6 @@
         initrd = {
             availableKernelModules = [ "uhci_hcd" "ahci" "xhci_pci" "nvme" "usbhid" "sr_mod" ];
             kernelModules = [ "kvm-intel" ];
-            extraModulesPackages = [ ];
         };
 
         /*
