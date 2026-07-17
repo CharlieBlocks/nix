@@ -1,8 +1,9 @@
-{ pkgs, lib, tt-schemes, inputs }:
+{ pkgs, lib, tt-schemes, inputs, ... }:
 let
 in
 
 {
+    home.stateVersion = "26.05";
 
     imports = [
         # This will initialise the base16 home-manager module
@@ -13,13 +14,13 @@ in
         # These are home-manager configurations that are applied
         # to all users. This is mostly home-manager's own configuration
         # as well as secrets management.
-        ../home/global
+        ../../home/global
 
         # ext are optional modules that are included. Each module contains
         # one or more programs which have been customised to my liking.
         # These are then enabled using the `ext.<>` config which will
         # install them onto the system.
-        ../home/ext
+        ../../home/ext
     ];
 
 
@@ -47,7 +48,7 @@ in
 
         defaultFonts = {
             sansSerif = [ "Atkinson Hyperlegible Next" ];
-            monospaced = [ "JetBrainsMono" "Atkinson Hyperlegible Mono" ];
+            monospace = [ "JetBrainsMono" "Atkinson Hyperlegible Mono" ];
         };
     };
 

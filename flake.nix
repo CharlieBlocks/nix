@@ -286,19 +286,22 @@ manager being declarative, nix the language is a little harder to read at a glan
                         our NixOS system here.
                         */
                         home-manager.nixosModules.home-manager {
-                            # extraSpecialArgs = { inherit (self) inputs outputs; };
-                            modules = [
-                                /*
-                                Users are esentially just a config file for our modules. However we keep them
-                                in their own directories to allow maximum flexibility when using the default.nix
-                                imports.
-                                */
-                                userfile
-                            ];
+			    home-manager.useGlobalPkgs = true;
+			    home-manager.useUserPackages = true;
+                            home-manager.extraSpecialArgs = { inherit (self) inputs outputs; };
+			    home-manager.users.${user} = import userfile;
+                            # home-manager.modules = [
+                            #     /*
+                            #     Users are esentially just a config file for our modules. However we keep them
+                            #     in their own directories to allow maximum flexibility when using the default.nix
+                            #     imports.
+                            #     */
+                            #     userfile
+                            # ];
                             /*
                             These are modules that are shared between users
                             */
-                            sharedModules = [
+                            home-manager.sharedModules = [
                                 inputs.niri.homeModules.niri
                             ];
                         }

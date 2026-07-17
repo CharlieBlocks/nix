@@ -92,7 +92,6 @@
     ##=========================================================##
     hardware = {
         nvidia = {
-            enabled = true;
             modesetting.enable = true;
         };
 
