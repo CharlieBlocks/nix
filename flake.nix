@@ -281,7 +281,12 @@ manager being declarative, nix the language is a little harder to read at a glan
                         */
                         hostfile
 
-                        ./${userfile}/system.nix
+                        /*
+                        This is a patch until I reorder where home-manager is declared so users
+                        can declare themselves on the nixos system. Currently once in the user files
+                        we have no control over the nixos configuration.
+                        */
+                        ./users/patch.nix
 
                         /*
                         User configuration is performed using home-manager. As such we add home-manager to
