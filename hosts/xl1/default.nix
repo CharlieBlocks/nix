@@ -155,6 +155,15 @@
         sessionVariables = {
             NIXOS_OZONE_WL = "1";
         };
+
+	/*
+	This is required to ensure that XDG works correctly with
+	the home-manager modules.
+	*/
+	pathsToLink = [
+	    "/share/applications"
+	    "/share/xdg-desktop-portal"
+	];
     };
 
     users = {
