@@ -87,6 +87,50 @@
     };
 
 
+    ##=================================================================##
+    ## System Services                                                 ##
+    ##      These are systemd services that run in the background. One ##
+    ##      of the core services we add is ly as our display           ##
+    ##      come login manager.                                        ##
+    ##=================================================================##
+    services = {
+        /*
+        I prefer ly as my display manager because of how simple it is.
+        I don't currently have it set up but the backgrounds can be
+        customised with durdraw animations.
+        */
+        displayManager.ly = {
+            enable = true;
+            settings = {
+                animate = false;
+                animation = "dur_file";
+                animation_frame_delay = 5;
+                animation_timeout_sec = 0;
+
+                # dur_file_path =  ${inputs.anim}
+                dur_offset_alignment = "center";
+                dur_x_offset = 0;
+                dur_y_offset = 0;
+                edge_margin = 0;
+
+                corner_top_right = "clock";
+          		corner_bottom_left = "version";
+          		corner_bottom_right = "numlock,capslock";
+
+          		clock = "%a %b %d - %H:%M:%S %Z";
+          		asterisk = "*";
+          		blank_password = true;
+          		blank_box = false;
+          		margin_box_h = 6;
+          		margin_box_v = 3;
+          		input_len = 40;
+          		hide_key_hints = true;
+            };
+        };
+    };
+
+
+
     ##============================================================##
     ## Base Programs                                              ##
     ##      While we install per-user programs using home-manager ##

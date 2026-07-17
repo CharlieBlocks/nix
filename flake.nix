@@ -281,6 +281,8 @@ manager being declarative, nix the language is a little harder to read at a glan
                         */
                         hostfile
 
+                        ./${userfile}/system.nix
+
                         /*
                         User configuration is performed using home-manager. As such we add home-manager to
                         our NixOS system here.
