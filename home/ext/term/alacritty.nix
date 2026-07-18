@@ -18,13 +18,13 @@ in
         alacritty = {
             enable = lib.mkEnableOption "Enable Alacritty";
             shell = lib.mkOption {
-                type = lib.types.oneOf [ "zsh" "nushell" ];
+                type = lib.types.enum [ "zsh" "nushell" ];
                 default = "zsh";
                 description = "The shell to use";
             };
 
             emulator = lib.mkOption {
-                type = lib.types.oneOf [ "none" "tmux" "zellij" ];
+                type = lib.types.nullOr (lib.types.enum [ "tmux" "zellij" ]);
                 default = "none";
                 description = "The terminal emulator to use. If set then it will be launched on startup by default";
             };
@@ -39,15 +39,15 @@ in
     config = {
         programs.alacritty = lib.mkIf config.apps.alacritty.enable {
             enable = true;
-    
+
             settings = {
-    
+
                 env = {
                     TERM = "xterm-256color";
                 };
-    
-                terminal.shell = "${shells[config.apps.alacritty.shell]}/bin/${config.apps.alacritty.shell}";
-    
+
+                terminal.shell = "${shells.${config.apps.alacritty.shell}}/bin/${config.apps.alacritty.shell}";
+
                 colors = {
                     primary = {
                         background = "${config.scheme.withHashtag.base00}";
@@ -64,52 +64,52 @@ in
                         white   = "${config.scheme.withHashtag.base05}";
                     };
                 };
-    
+
                 font = {
                     normal = { family = "JetBrainsMonoNL NF"; style = "Regular"; };
                     bold = { style = "Bold"; };
                     italic = { style = "Italic"; };
                     bold_italic = { style = "Bold Italic"; };
-    
+
                     size = 14;
                 };
-    
+
                 selection = {
                     save_to_clipboard = true;
                 };
-    
+
                 cursor = {
                     style = { shape = "Block"; vi_mode_style = { shape = "Block"; blinking = "Off"; }; };
                     unfocused_hollow = true;
                     thickness = 0.15;
                 };
-    
+
                 mouse = {
                     hide_when_typing = false;
                 };
-    
+
                 keyboard.bindings = [ ];
-    
+
                 window = {
                     padding = {
                         decorations = "Transparent";
-    
+
                         top = 30;
                         left = 4;
                         right = 4;
-    
+
                         opacity = 1;
                         blur = true;
                         resize_increments = true;
                         option_as_alt = "OnlyLeft";
                     };
                 };
-    
+
                 scrolling = {
                     history = 10000;
                     multiplier = 1;
                 };
-    
+
                 hints.enabled = [
                     {
                         command = "open";
@@ -122,7 +122,7 @@ in
             };
         };
 
- 	inherit (emulators[config.apps.alacritty.emulator]);
+       	inherit (if config.apps.alacritty.enumerator != null then emulators.${config.apps.alacritty.emulator} else {});
     };
 
 }

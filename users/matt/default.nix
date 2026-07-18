@@ -86,15 +86,14 @@ in
             enable = true;
 
             # zsh or nushell
-            shell.nushell = true;
+            shell = "zsh";
 
             /*
             Origionally I was a tmux user however I have never gotton on
             with the config or some of the more dated nuances. As such I've
             been trying out zellij as an alternative.
             */
-            emulator.tmux = false;
-            emulator.zellij = true;
+            emulator = "tmux";
 
             /*
             Extra programs that need shell integration.
