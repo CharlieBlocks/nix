@@ -1,4 +1,4 @@
-{ configs, pkgs, lib, inputs, ... }: 
+{ configs, pkgs, lib, inputs, ... }:
 {
     ## ====================== ##
     ## Hardware Configuration ##
@@ -135,7 +135,7 @@
     programs.hyprland = {
         enable = true;
         xwayland.enable = false;
-	withUWSM = true;
+        withUWSM = true;
 	# If installed using HomeManager ensure that hyprland.systemd.enable is false
     };
 
@@ -159,7 +159,7 @@
 		dur_x_offset = 0;
 		dur_y_offset = 0;
 		edge_margin = 0;
-		 
+
 		corner_top_right = "clock";
 		corner_bottom_left = "version";
 		corner_bottom_right = "numlock,capslock";

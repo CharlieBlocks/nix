@@ -148,6 +148,7 @@
             firefox
             zsh
             alacritty
+            uwsm
         ];
 
         shells = [ pkgs.zsh ];
@@ -165,6 +166,18 @@
     	    "/share/xdg-desktop-portal"
             "/share/zsh"
     	];
+    };
+
+    programs.uwsm = {
+        enable = true;
+
+        waylandCompositors = {
+            niri = {
+                prettyName = "Niri";
+                comment = "Niri compositor managed by UWSM";
+                binPath = "${pkgs.niri}/bin/niri";
+            };
+        };
     };
 
     users = {
