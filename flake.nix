@@ -298,10 +298,16 @@ manager being declarative, nix the language is a little harder to read at a glan
                         our NixOS system here.
                         */
                         home-manager.nixosModules.home-manager {
-			    home-manager.useGlobalPkgs = true;
-			    home-manager.useUserPackages = true;
+             			    home-manager.useGlobalPkgs = true;
+             			    home-manager.useUserPackages = true;
                             home-manager.extraSpecialArgs = { inherit (self) inputs outputs; };
-			    home-manager.users.${user} = import userfile;
+                            home-manager.users.${user} = import userfile;
+                            home-manager.modules = [
+                                # This will initialise the base16 home-manager module
+                                # which allows us to access the base16 colours from the home-manager
+                                # config.
+                                inputs.base16.homeManagerModule
+                            ];
                             # home-manager.modules = [
                             #     /*
                             #     Users are esentially just a config file for our modules. However we keep them

@@ -1,4 +1,4 @@
-{ pkgs, lib, tt-schemes, inputs, ... }:
+{ pkgs, lib, inputs, ... }:
 let
 in
 
@@ -6,11 +6,6 @@ in
     home.stateVersion = "26.05";
 
     imports = [
-        # This will initialise the base16 home-manager module
-        # which allows us to access the base16 colours from the home-manager
-        # config.
-        inputs.base16.homeManagerModule
-
         # These are home-manager configurations that are applied
         # to all users. This is mostly home-manager's own configuration
         # as well as secrets management.
@@ -58,7 +53,7 @@ in
     injected into the dot files, usually into a 'nix' theme, to style
     the app. Yes, I am aware that stylix exists but I prefer this method.
     */
-    scheme = "${tt-schemes}/base24/eldritch.yaml";
+    scheme = "${inputs.tt-schemes}/base24/eldritch.yaml";
 
 
     /*
