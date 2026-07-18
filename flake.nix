@@ -302,25 +302,13 @@ manager being declarative, nix the language is a little harder to read at a glan
              			    home-manager.useUserPackages = true;
                             home-manager.extraSpecialArgs = { inherit (self) inputs outputs; };
                             home-manager.users.${user} = import userfile;
-                            home-manager.modules = [
+                            home-manager.sharedModules = [
+                                inputs.niri.homeModules.niri
+
                                 # This will initialise the base16 home-manager module
                                 # which allows us to access the base16 colours from the home-manager
                                 # config.
                                 inputs.base16.homeManagerModule
-                            ];
-                            # home-manager.modules = [
-                            #     /*
-                            #     Users are esentially just a config file for our modules. However we keep them
-                            #     in their own directories to allow maximum flexibility when using the default.nix
-                            #     imports.
-                            #     */
-                            #     userfile
-                            # ];
-                            /*
-                            These are modules that are shared between users
-                            */
-                            home-manager.sharedModules = [
-                                inputs.niri.homeModules.niri
                             ];
                         }
                     ];
