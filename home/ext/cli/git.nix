@@ -20,12 +20,12 @@
 
             settings = {
                 init.defaultBranch = "main";
-                filter.lfs = {
-                    required = true;
-                    clean = "git-lfs clean -- %f";
-                    smudge = "git-lfs smudge -- %f";
-                    process = "git-lfs filter-process";
-                };
+                # filter.lfs = {
+                #     required = true;
+                #     clean = "git-lfs clean -- %f";
+                #     smudge = "git-lfs smudge -- %f";
+                #     process = "git-lfs filter-process";
+                # };
                 alias = {
                     last = "log -1 HEAD";
                 };
