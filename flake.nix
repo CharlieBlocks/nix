@@ -107,6 +107,11 @@ manager being declarative, nix the language is a little harder to read at a glan
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        zsh-patina = {
+            url = "github:michel-kraemer/zsh-patina";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
 
         /*
         Finally, season to taste.
