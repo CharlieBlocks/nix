@@ -129,7 +129,8 @@
 
                     # Window Management
                     "Mod+Escape"    = { action.toggle-overview = [ ]; repeat = false; hotkey-overlay = { title = "Toggle Overview"; }; };
-                    "Mod+Backspace" = { action.close-window = [ ]; repeat = false; hotkey-overlay = { title = "Close Window"; }; };
+                    # "Mod+Backspace" = { action.close-window = [ ]; repeat = false; hotkey-overlay = { title = "Close Window"; }; };
+                    "Mod+Q"         = { action.close = [ ]; repeat = false; hotkey-overlay = { title = "Close Window"; }; };
 
                     # Function Keys
                     "XF86AudioRaiseVolume"  = { action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" ]; allow-when-locked = true; };
@@ -143,6 +144,9 @@
 
                     "XF86MonBrightnessUp"   = { action.spawn = [ "brightnessctl" "--class=backlight" "set" "+10%" ]; allow-when-locked = true; };
                     "XF86MonBrightnessDown" = { action.spawn = [ "brightnessctl" "--class=backlight" "set" "10%-" ]; allow-when-locked = true; };
+
+                    # Application Launchers
+                    "Mod+Enter" = { action.spawn = [ "alacritty" ]; };
                 };
 
 
