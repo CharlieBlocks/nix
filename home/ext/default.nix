@@ -1,6 +1,7 @@
 { ... }: {
     imports = [
-	./wm
-	./term 
+       	./wm
+       	./term
+        ./cli
     ];
 }

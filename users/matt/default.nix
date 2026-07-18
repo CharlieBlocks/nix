@@ -142,7 +142,7 @@ in
         I don't install or configure tools like cargo or python
         as that is the job of devshells
         */
-        # cli = {
+        cli = {
         #     az = {
         #         enable = true;
 
@@ -153,12 +153,12 @@ in
         #         extensions = [];
         #     };
 
-        #     /* git is included in global but not configured for the user */
-        #     git = {
-        #         enable = true;
-        #         # name = "Matthew Tindley";
-        #         # email = "matthewjtindley@gmail.com";
-        #     };
+            /* git is included in global but not configured for the user */
+            git = {
+                enable = true;
+                name = "Matthew Tindley";
+                email = "matthewjtindley@gmail.com";
+            };
 
         #     /*
         #     Since I moved from windows to macos I started using podman.
@@ -194,7 +194,7 @@ in
         #     # - zip
         #     # - unzip
 
-        # };
+        };
 
     };
 
