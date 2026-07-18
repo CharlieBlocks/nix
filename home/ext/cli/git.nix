@@ -3,18 +3,18 @@
     options.apps.cli.git = {
         enable = lib.mkEnableOption "Enable Git";
         name = lib.mkOption {
-            name = "Author Name";
+            description = "Author Name";
             type = lib.types.str;
         };
         email = lib.mkOption {
-            name = "Author Email";
+            description = "Author Email";
             type = lib.types.str;
         };
     };
 
 
     config = {
-        programs.git = lib.mkIf config.options.apps.cli.git.enable {
+        programs.git = lib.mkIf config.apps.cli.git.enable {
             enable = true;
             lfs.enable = true;
 
