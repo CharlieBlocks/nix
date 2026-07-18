@@ -10,7 +10,13 @@
         };
     };
 
+
     config = {
+
+        home.packages = [
+            pkgs.wl-clipboard
+            pkgs.wayland-utils
+        ];
 
         programs.niri = lib.mkIf config.apps.niri.enable {
             enable = true;
@@ -106,35 +112,35 @@
                 # https://niri-wm.github.io/niri/Configuration%3A-Key-Bindings.html#actions
                 binds = {
                     # Movement Binds
-                    "Mod+Right" = { action.focus-column-right = true; hotkey-overlay = { title = "Select next right window"; }; };
-                    "Mod+Left" = { action.focus-column-left = true; hotkey-overlay = { title = "Select previous left window"; }; };
-                    "Mod+Down" = { action.focus-window-down = true; hotkey-overlay = { title = "Select the below window"; }; };
-                    "Mod+Up" = { action.focus-window-up = true; hotkey-overlay = { title = "Select the above window"; }; };
-                    "Mod+L" = { action.focus-column-right = true; hotkey-overlay = { title = "Select next right window"; }; };
-                    "Mod+H" = { action.focus-column-left = true; hotkey-overlay = { title = "Select previous left window"; }; };
-                    "Mod+J" = { action.focus-window-down = true; hotkey-overlay = { title = "Select the below window"; }; };
-                    "Mod+K" = { action.focus-window-up = true; hotkey-overlay = { title = "Select the above window"; }; };
-    
+                    "Mod+Right" = { action.focus-column-right = [ ]; hotkey-overlay = { title = "Select next right window"; }; };
+                    "Mod+Left" = { action.focus-column-left = [ ]; hotkey-overlay = { title = "Select previous left window"; }; };
+                    "Mod+Down" = { action.focus-window-down = [ ]; hotkey-overlay = { title = "Select the below window"; }; };
+                    "Mod+Up" = { action.focus-window-up = [ ]; hotkey-overlay = { title = "Select the above window"; }; };
+                    "Mod+L" = { action.focus-column-right = [ ]; hotkey-overlay = { title = "Select next right window"; }; };
+                    "Mod+H" = { action.focus-column-left = [ ]; hotkey-overlay = { title = "Select previous left window"; }; };
+                    "Mod+J" = { action.focus-window-down = [ ]; hotkey-overlay = { title = "Select the below window"; }; };
+                    "Mod+K" = { action.focus-window-up = [ ]; hotkey-overlay = { title = "Select the above window"; }; };
+
                     # Window Movement Binds
-                    "Mod+Ctrl+L" = { action.move-column-right = true; hotkey-overlay = { title = "Move window right"; }; };
-                    "Mod+Ctrl+H" = { action.move-column-left = true; hotkey-overlay = { title = "Move window left"; }; };
-                    "Mod+Ctrl+J" = { action.move-window-down = true; hotkey-overlay = { title = "Move window down"; }; };
-                    "Mod+Ctrl+K" = { action.move-window-up = true; hotkey-overlay = { title = "Move window up"; }; };
-    
+                    "Mod+Ctrl+L" = { action.move-column-right = [ ]; hotkey-overlay = { title = "Move window right"; }; };
+                    "Mod+Ctrl+H" = { action.move-column-left = [ ]; hotkey-overlay = { title = "Move window left"; }; };
+                    "Mod+Ctrl+J" = { action.move-window-down = [ ]; hotkey-overlay = { title = "Move window down"; }; };
+                    "Mod+Ctrl+K" = { action.move-window-up = [ ]; hotkey-overlay = { title = "Move window up"; }; };
+
                     # Window Management
-                    "Mod+Escape"    = { action.toggle-overview = true; repeat = false; hotkey-overlay = { title = "Toggle Overview"; }; };
-                    "Mod+Backspace" = { action.close-window = true; repeat = false; hotkey-overlay = { title = "Close Window"; }; };
-    
+                    "Mod+Escape"    = { action.toggle-overview = [ ]; repeat = false; hotkey-overlay = { title = "Toggle Overview"; }; };
+                    "Mod+Backspace" = { action.close-window = [ ]; repeat = false; hotkey-overlay = { title = "Close Window"; }; };
+
                     # Function Keys
                     "XF86AudioRaiseVolume"  = { action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" ]; allow-when-locked = true; };
                     "XF86AudioLowerVolume"  = { action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-" ]; allow-when-locked = true; };
                     "XF86AudioMute"         = { action.spawn = [ "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ]; allow-when-locked = true; };
-    
+
                     "XF86AudioPlay"         = { action.spawn = [ "playerctl" "play-pause" ]; allow-when-locked = true; };
                     "XF86AudioStop"         = { action.spawn = [ "playerctl" "stop" ]; allow-when-locked = true; };
                     "XF86AudioPrev"         = { action.spawn = [ "playerctl" "previous" ]; allow-when-locked = true; };
                     "XF86AudioNext"         = { action.spawn = [ "playerctl" "next" ]; allow-when-locked = true; };
-    
+
                     "XF86MonBrightnessUp"   = { action.spawn = [ "brightnessctl" "--class=backlight" "set" "+10%" ]; allow-when-locked = true; };
                     "XF86MonBrightnessDown" = { action.spawn = [ "brightnessctl" "--class=backlight" "set" "10%-" ]; allow-when-locked = true; };
                 };
@@ -146,7 +152,7 @@
                 };
 
 
-    
+
             };
         };
 
