@@ -20,8 +20,8 @@
 
             config = {
                 user = {
-                    name = config.apps.cli.git.name
-                    email = config.apps.cli.git.email
+                    name = config.apps.cli.git.name;
+                    email = config.apps.cli.git.email;
                 };
 
                 init.defaultBranch = "main";
