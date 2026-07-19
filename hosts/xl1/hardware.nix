@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, config, ... }: {
 
     ##========================================================##
     ## Boot Configuration                                     ##
@@ -92,6 +92,11 @@
     ##=========================================================##
     hardware = {
         nvidia = {
+	    package = config.boot.kernelPackages.nvidiaPackages.stable;
+	    open=true;
+	    powerManagement.enable = false;
+	    powerManagement.finegrained = false;
+	    nvidiaSettings = true;
             modesetting.enable = true;
         };
 
@@ -100,5 +105,6 @@
             enable = true;
         };
     };
+    services.xserver.videoDrivers = [ "nvidia" ];
 
 }

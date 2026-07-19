@@ -125,8 +125,11 @@
           		margin_box_v = 3;
           		input_len = 40;
           		hide_key_hints = true;
+
+		setup_cmd = "";
             };
         };
+
     };
 
 
@@ -149,6 +152,7 @@
             zsh
             alacritty
             uwsm
+            niri
         ];
 
         shells = [ pkgs.zsh ];
@@ -168,6 +172,7 @@
     	];
     };
 
+    
     programs.uwsm = {
         enable = true;
 
@@ -175,7 +180,8 @@
             niri = {
                 prettyName = "Niri";
                 comment = "Niri compositor managed by UWSM";
-                binPath = "${pkgs.niri}/bin/niri";
+		binPath = "/run/current-system/sw/bin/niri-session";
+                # binPath = "${pkgs.niri}/bin/niri";
             };
         };
     };

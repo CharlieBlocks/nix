@@ -4,6 +4,7 @@ in
 
 {
     home.stateVersion = "26.05";
+    wayland.windowManager.hyprland.systemd.enable = false;
 
     imports = [
         # These are home-manager configurations that are applied
