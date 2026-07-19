@@ -17,9 +17,7 @@
             }
         ];
 
-        envExtra = {
-
-        };
+        envExtra = '''';
 
         shellAliases = {
 

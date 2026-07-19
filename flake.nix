@@ -300,6 +300,7 @@ manager being declarative, nix the language is a little harder to read at a glan
                         home-manager.nixosModules.home-manager {
              			    home-manager.useGlobalPkgs = true;
              			    home-manager.useUserPackages = true;
+			    home-manager.backupFileExtension = ".b";
                             home-manager.extraSpecialArgs = { inherit (self) inputs outputs; };
                             home-manager.users.${user} = import userfile;
                             home-manager.sharedModules = [

@@ -13,6 +13,10 @@ let
 
 in
 {
+#     imports = []
+# 	++ (lib.optional (config.apps.alacritty.shell == "zsh") ./zsh.nix)
+# 	++ (lib.optional (config.apps.alacritty.shell == "nushell") ./nushell.nix);
+    imports = [ ./zsh.nix ];
 
     options.apps = {
         alacritty = {
@@ -79,7 +83,8 @@ in
                 };
 
                 cursor = {
-                    style = { shape = "Block"; vi_mode_style = { shape = "Block"; blinking = "Off"; }; };
+                    style = { shape = "Block"; blinking = "Off"; };
+                    vi_mode_style = { shape = "Block"; blinking = "Off"; };
                     unfocused_hollow = true;
                     thickness = 0.15;
                 };
@@ -91,17 +96,14 @@ in
                 keyboard.bindings = [ ];
 
                 window = {
+		    decorations = "Transparent";
+		    opacity = 1;
+		    blur = true;
+		    resize_increments = true;
+		    option_as_alt = "OnlyLeft";
                     padding = {
-                        decorations = "Transparent";
-
-                        top = 30;
-                        left = 4;
-                        right = 4;
-
-                        opacity = 1;
-                        blur = true;
-                        resize_increments = true;
-                        option_as_alt = "OnlyLeft";
+			x = 4;
+			y = 4;
                     };
                 };
 
